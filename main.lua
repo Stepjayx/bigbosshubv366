@@ -28,18 +28,22 @@ local gui = Instance.new("ScreenGui")
 gui.Name = "BIGBOSS_HUB_PV3"
 gui.ResetOnSpawn = false
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+gui.IgnoreGuiInset = true
+gui.DisplayOrder = 999
 gui.Parent = player:WaitForChild("PlayerGui")
 
 --==================================================
--- MAIN WINDOW
+-- MAIN WINDOW (hidden until warning dismissed)
 --==================================================
 
 local main = Instance.new("Frame")
 main.Name = "Main"
 main.Size = UDim2.fromOffset(750, 570)
 main.Position = UDim2.new(0.5, -375, 0.5, -285)
+main.AnchorPoint = Vector2.new(0, 0)
 main.BackgroundColor3 = BLACK
 main.BorderSizePixel = 0
+main.Visible = false
 main.Parent = gui
 
 local mainCorner = Instance.new("UICorner")
@@ -49,6 +53,150 @@ mainCorner.Parent = main
 local uiScale = Instance.new("UIScale")
 uiScale.Scale = 0.60
 uiScale.Parent = main
+
+--==================================================
+-- FLOATING CIRCLE LOGO (shows when UI is closed)
+--==================================================
+
+local logo = Instance.new("TextButton")
+logo.Name = "CircleLogo"
+logo.Size = UDim2.fromOffset(80, 80)
+logo.Position = UDim2.new(0, 20, 0.5, -40)
+logo.BackgroundColor3 = BLACK
+logo.Text = "BBHV3"
+logo.TextColor3 = ORANGE
+logo.TextSize = 15
+logo.Font = Enum.Font.GothamBold
+logo.AutoButtonColor = false
+logo.Visible = false
+logo.Parent = gui
+
+local logoCorner = Instance.new("UICorner")
+logoCorner.CornerRadius = UDim.new(1, 0)
+logoCorner.Parent = logo
+
+local logoStroke = Instance.new("UIStroke")
+logoStroke.Color = ORANGE
+logoStroke.Thickness = 2
+logoStroke.Parent = logo
+
+-- Logo drag support
+local logoDragging = false
+local logoDragStart
+local logoStartPos
+
+logo.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        logoDragging = true
+        logoDragStart = input.Position
+        logoStartPos = logo.Position
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if not logoDragging then return end
+    if input.UserInputType == Enum.UserInputType.MouseMovement
+    or input.UserInputType == Enum.UserInputType.Touch then
+        local delta = input.Position - logoDragStart
+        local moved = math.abs(delta.X) + math.abs(delta.Y)
+        if moved > 6 then
+            logo.Position = UDim2.new(
+                logoStartPos.X.Scale,
+                logoStartPos.X.Offset + delta.X,
+                logoStartPos.Y.Scale,
+                logoStartPos.Y.Offset + delta.Y
+            )
+        end
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        logoDragging = false
+    end
+end)
+
+--==================================================
+-- WARNING POPUP (appears first, centered)
+--==================================================
+
+local warning = Instance.new("Frame")
+warning.Name = "Warning"
+warning.Size = UDim2.fromOffset(420, 220)
+warning.Position = UDim2.new(0.5, -210, 0.5, -110)
+warning.BackgroundColor3 = BLACK
+warning.BorderSizePixel = 0
+warning.Parent = gui
+
+local warningCorner = Instance.new("UICorner")
+warningCorner.CornerRadius = UDim.new(0, 12)
+warningCorner.Parent = warning
+
+local warningStroke = Instance.new("UIStroke")
+warningStroke.Color = ORANGE
+warningStroke.Thickness = 2
+warningStroke.Parent = warning
+
+local warnTitle = Instance.new("TextLabel")
+warnTitle.Size = UDim2.new(1, -30, 0, 34)
+warnTitle.Position = UDim2.fromOffset(15, 15)
+warnTitle.BackgroundTransparency = 1
+warnTitle.Text = "⚠  WARNING  ⚠"
+warnTitle.TextColor3 = ORANGE
+warnTitle.TextSize = 22
+warnTitle.Font = Enum.Font.GothamBold
+warnTitle.Parent = warning
+
+local warnText = Instance.new("TextLabel")
+warnText.Size = UDim2.new(1, -40, 0, 90)
+warnText.Position = UDim2.fromOffset(20, 60)
+warnText.BackgroundTransparency = 1
+warnText.Text = "Not All Script is Working.\nSome scripts are Patched or\nNo longer Supported."
+warnText.TextColor3 = WHITE
+warnText.TextSize = 16
+warnText.Font = Enum.Font.GothamBold
+warnText.TextWrapped = true
+warnText.TextYAlignment = Enum.TextYAlignment.Top
+warnText.Parent = warning
+
+local warnClose = Instance.new("TextButton")
+warnClose.Size = UDim2.fromOffset(40, 40)
+warnClose.Position = UDim2.new(1, -50, 0, 12)
+warnClose.BackgroundColor3 = PANEL2
+warnClose.Text = "X"
+warnClose.TextColor3 = WHITE
+warnClose.TextSize = 16
+warnClose.Font = Enum.Font.GothamBold
+warnClose.Parent = warning
+
+local warnCloseCorner = Instance.new("UICorner")
+warnCloseCorner.CornerRadius = UDim.new(0, 7)
+warnCloseCorner.Parent = warnClose
+
+local warnOK = Instance.new("TextButton")
+warnOK.Size = UDim2.new(1, -40, 0, 40)
+warnOK.Position = UDim2.new(0, 20, 1, -55)
+warnOK.BackgroundColor3 = ORANGE
+warnOK.Text = "I UNDERSTAND"
+warnOK.TextColor3 = BLACK
+warnOK.TextSize = 14
+warnOK.Font = Enum.Font.GothamBold
+warnOK.Parent = warning
+
+local warnOKCorner = Instance.new("UICorner")
+warnOKCorner.CornerRadius = UDim.new(0, 8)
+warnOKCorner.Parent = warnOK
+
+-- Both X and OK dismiss the warning and reveal the hub
+local function dismissWarning()
+    warning.Visible = false
+    main.Visible = true
+end
+
+warnClose.MouseButton1Click:Connect(dismissWarning)
+warnOK.MouseButton1Click:Connect(dismissWarning)
 
 --==================================================
 -- HEADER
@@ -84,7 +232,7 @@ owner.TextXAlignment = Enum.TextXAlignment.Left
 owner.Parent = header
 
 --==================================================
--- CLOSE BUTTON
+-- CLOSE BUTTON (hides UI, shows logo)
 --==================================================
 
 local close = Instance.new("TextButton")
@@ -102,7 +250,14 @@ closeCorner.CornerRadius = UDim.new(0, 7)
 closeCorner.Parent = close
 
 close.MouseButton1Click:Connect(function()
-    gui:Destroy()
+    main.Visible = false
+    logo.Visible = true
+end)
+
+-- Tap the logo → bring back the UI
+logo.MouseButton1Click:Connect(function()
+    main.Visible = true
+    logo.Visible = false
 end)
 
 --==================================================
@@ -205,7 +360,6 @@ listPadding.Parent = list
 
 --==================================================
 -- SCRIPT DATABASE
--- tag = "KEYLESS" (green) or "KEY" (red)
 --==================================================
 
 local scripts = {
@@ -220,7 +374,6 @@ local scripts = {
     { name = "Airflow",               tag = "KEYLESS", url = "https://airflowscript.com/loader" },
     { name = "Night Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau" },
     { name = "CloverHub",             tag = "KEYLESS", url = "https://cloverhub.app/clover.lua" },
-    { name = "Ajans Hub",             tag = "KEYLESS", url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
     { name = "Potato Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua" },
     { name = "Spiritual Gaming Hub",  tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua" },
     { name = "Ouroboros Hub",         tag = "KEYLESS", url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
@@ -248,6 +401,7 @@ local scripts = {
     { name = "Neva Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
 
     -- ============ KEY REQUIRED ============
+    { name = "Ajans Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
     { name = "Snowy Hub",             tag = "KEY",     url = "https://flowauth.net/v1/ui/a87f00d9adf63658655fcd02ab86a4ef.lua" },
     { name = "Solix Hub",             tag = "KEY",     url = "https://solixhub.com/loader" },
     { name = "Lumin Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/bb52b20f68271ba3e60fffc8f902f25b.lua" },
@@ -280,7 +434,6 @@ local function createScriptSlot(data)
     rowCorner.CornerRadius = UDim.new(0, 7)
     rowCorner.Parent = row
 
-    -- SCRIPT NAME
     local label = Instance.new("TextLabel")
     label.Size = UDim2.new(0, 250, 1, 0)
     label.Position = UDim2.fromOffset(15, 0)
@@ -293,7 +446,6 @@ local function createScriptSlot(data)
     label.TextTruncate = Enum.TextTruncate.AtEnd
     label.Parent = row
 
-    -- TAG BADGE (KEYLESS = green, KEY = red)
     local isKey = data.tag == "KEY"
     local badgeColor = isKey and Color3.fromRGB(70, 25, 25) or Color3.fromRGB(25, 65, 40)
     local textColor  = isKey and RED or GREEN
@@ -312,7 +464,6 @@ local function createScriptSlot(data)
     tagCorner.CornerRadius = UDim.new(0, 5)
     tagCorner.Parent = tag
 
-    -- STAR
     local star = Instance.new("TextButton")
     star.Size = UDim2.fromOffset(38, 34)
     star.Position = UDim2.new(1, -100, 0, 6)
@@ -337,7 +488,6 @@ local function createScriptSlot(data)
         end
     end)
 
-    -- RUN
     local run = Instance.new("TextButton")
     run.Size = UDim2.fromOffset(60, 34)
     run.Position = UDim2.new(1, -60, 0, 6)
