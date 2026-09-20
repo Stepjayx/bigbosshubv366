@@ -11,12 +11,14 @@ local player = Players.LocalPlayer
 -- COLORS
 --==================================================
 
-local BLACK = Color3.fromRGB(7, 9, 14)
-local PANEL = Color3.fromRGB(15, 20, 32)
+local BLACK  = Color3.fromRGB(7, 9, 14)
+local PANEL  = Color3.fromRGB(15, 20, 32)
 local PANEL2 = Color3.fromRGB(24, 31, 47)
 local ORANGE = Color3.fromRGB(255, 166, 0)
-local WHITE = Color3.fromRGB(235, 235, 235)
-local GREY = Color3.fromRGB(130, 140, 155)
+local WHITE  = Color3.fromRGB(235, 235, 235)
+local GREY   = Color3.fromRGB(130, 140, 155)
+local GREEN  = Color3.fromRGB(60, 200, 110)
+local RED    = Color3.fromRGB(220, 70, 70)
 
 --==================================================
 -- GUI
@@ -25,6 +27,7 @@ local GREY = Color3.fromRGB(130, 140, 155)
 local gui = Instance.new("ScreenGui")
 gui.Name = "BIGBOSS_HUB_PV3"
 gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.Parent = player:WaitForChild("PlayerGui")
 
 --==================================================
@@ -42,10 +45,6 @@ main.Parent = gui
 local mainCorner = Instance.new("UICorner")
 mainCorner.CornerRadius = UDim.new(0, 10)
 mainCorner.Parent = main
-
---==================================================
--- SCALE
---==================================================
 
 local uiScale = Instance.new("UIScale")
 uiScale.Scale = 0.60
@@ -108,7 +107,6 @@ end)
 
 --==================================================
 -- DRAG / MOVE UI
--- MOBILE + PC
 --==================================================
 
 local dragging = false
@@ -116,42 +114,33 @@ local dragStart
 local startPosition
 
 header.InputBegan:Connect(function(input)
-
     if input.UserInputType == Enum.UserInputType.MouseButton1
     or input.UserInputType == Enum.UserInputType.Touch then
-
         dragging = true
         dragStart = input.Position
         startPosition = main.Position
-
-        input.Changed:Connect(function()
-
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-
-        end)
     end
 end)
 
 UserInputService.InputChanged:Connect(function(input)
-
-    if not dragging then
-        return
-    end
-
+    if not dragging then return end
     if input.UserInputType == Enum.UserInputType.MouseMovement
     or input.UserInputType == Enum.UserInputType.Touch then
-
         local delta = input.Position - dragStart
-
+        local scale = uiScale.Scale
         main.Position = UDim2.new(
             startPosition.X.Scale,
-            startPosition.X.Offset + delta.X,
-
+            startPosition.X.Offset + delta.X / scale,
             startPosition.Y.Scale,
-            startPosition.Y.Offset + delta.Y
+            startPosition.Y.Offset + delta.Y / scale
         )
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = false
     end
 end)
 
@@ -220,195 +209,44 @@ listPadding.Parent = list
 
 local scripts = {
 
-    {
-        name = "Night Hub",
-        url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau"
-    },
-
-    {
-        name = "CloverHub",
-        url = "https://cloverhub.app/clover.lua"
-    },
-
-    {
-        name = "Ajans Hub",
-        url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua"
-    },
-
-    {
-        name = "Potato Hub",
-        url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua"
-    },
-
-    {
-        name = "Spiritual Gaming Hub",
-        url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua"
-    },
-
-    {
-        name = "Ouroboros Hub",
-        url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua"
-    },
-
-    {
-        name = "Decode Hub",
-        url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DEK3ACODE.lua"
-    },
-
-    {
-        name = "Fyy Community",
-        url = "https://FyyCommunity.my.id"
-    },
-
-    {
-        name = "Foxname",
-        url = "https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Fn-stealanegg.lua"
-    },
-
-    {
-        name = "Zerion Hub",
-        url = "https://zerionhub.com/api/script"
-    },
-
-    {
-        name = "Sena Hub",
-        url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go"
-    },
-
-    {
-        name = "BlyxoHub",
-        url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua"
-    },
-
-    {
-        name = "UB Hub",
-        url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/Loader.lua"
-    },
-
-    {
-        name = "Rene Baterbonia",
-        url = "https://raw.githubusercontent.com/JuaINasiRendang/loader/refs/heads/main/main.lua"
-    },
-
-    {
-        name = "Toolbox Hub",
-        url = "https://raw.githubusercontent.com/Abdullahking20/loader_lua/main/loader"
-    },
-
-    {
-        name = "Glint Hub",
-        url = "https://flowauth.net/v1/loaders/6824c37a4078d7d311677732e231edaa.lua"
-    },
-
-    {
-        name = "ONhub",
-        url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua"
-    },
-
-    {
-        name = "BK Hub",
-        url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua"
-    },
-
-    {
-        name = "Nexa Hub",
-        url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2"
-    },
-
-    {
-        name = "Probost Hub",
-        url = "https://api.jnkie.com/api/v1/luascripts/public/0199b576f5c2d5a34159f0f9f4e1de0a566b4d1da5b1cfa5d2f71ade9bdcaa24/download"
-    },
-
-    {
-        name = "SoftKillz",
-        url = "https://pastebin.com/raw/ZuE8Wb5K"
-    },
-
-    {
-        name = "Yuri Hub",
-        url = "https://raw.githubusercontent.com/iLove-yuri/leeeeebian/refs/heads/main/homumado.lua"
-    },
-
-    {
-        name = "Airflow Hub",
-        url = "https://airflowscripts.com/loader"
-    },
-
-    {
-        name = "SaiOps Hub",
-        url = "https://api.saiops.cc/scripts/Steal-An-Egg-Script.lua"
-    },
-
-    {
-        name = "SportsClub Hub",
-        url = "https://loader.sportsclub.fun/loader.luau"
-    },
-
-    {
-        name = "BigFroot Hub",
-        url = "https://raw.githubusercontent.com/hanniii/Loader/refs/heads/main/BFLoader.lua"
-    },
-
-    {
-        name = "Chiyo Hub",
-        url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua"
-    },
-
-    {
-        name = "Asvra Hub",
-        url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main"
-    },
-
-    {
-        name = "UlamHUB",
-        url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download"
-    },
-
-    {
-        name = "Steal an Egg Mobile Hub",
-        url = "https://rscripts.net/raw/auto-steal-egg-auto-go-back-to-base-auto-place-eggs-and-more_1786067954070_r3UahDdqbt.txt"
-    },
-
-    {
-        name = "Lumin Hub",
-        url = "http://luminon.top/loader.lua"
-    },
-
-    {
-        name = "Wis Hub",
-        url = "https://api.wishub.cloud/files/loader.lua"
-    },
-
-    {
-        name = "Open Source Steal an Egg Script",
-        url = "https://rscripts.net/raw/auto-steal-auto-hatch-upgrade-treadmill-auto-sell_1786088210969_Gtt85kSqk1.txt"
-    },
-
-    {
-        name = "Axurs Games Hub",
-        url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg"
-    },
-
-    {
-        name = "Clout Hub",
-        url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua"
-    },
-
-    {
-        name = "Miranda Hub",
-        url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg"
-    },
-
-    {
-        name = "Chilli Hub",
-        url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"
-    },
-
-    {
-        name = "Neva Hub",
-        url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2"
-    }
+    { name = "Night Hub",              url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau" },
+    { name = "CloverHub",              url = "https://cloverhub.app/clover.lua" },
+    { name = "Ajans Hub",              url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
+    { name = "Potato Hub",             url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua" },
+    { name = "Spiritual Gaming Hub",   url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua" },
+    { name = "Ouroboros Hub",          url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
+    { name = "Decode Hub",             url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DEK3ACODE.lua" },
+    { name = "Fyy Community",          url = "https://FyyCommunity.my.id" },
+    { name = "Foxname",                url = "https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Fn-stealanegg.lua" },
+    { name = "Zerion Hub",             url = "https://zerionhub.com/api/script" },
+    { name = "Sena Hub",               url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go" },
+    { name = "BlyxoHub",               url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua" },
+    { name = "UB Hub",                 url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/Loader.lua" },
+    { name = "Rene Baterbonia",        url = "https://raw.githubusercontent.com/JuaINasiRendang/loader/refs/heads/main/main.lua" },
+    { name = "Toolbox Hub",            url = "https://raw.githubusercontent.com/Abdullahking20/loader_lua/main/loader" },
+    { name = "Glint Hub",              url = "https://flowauth.net/v1/loaders/6824c37a4078d7d311677732e231edaa.lua" },
+    { name = "ONhub",                  url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua" },
+    { name = "BK Hub",                 url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua" },
+    { name = "Nexa Hub",               url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
+    { name = "Probost Hub",            url = "https://api.jnkie.com/api/v1/luascripts/public/0199b576f5c2d5a34159f0f9f4e1de0a566b4d1da5b1cfa5d2f71ade9bdcaa24/download" },
+    { name = "SoftKillz",              url = "https://pastebin.com/raw/ZuE8Wb5K" },
+    { name = "Yuri Hub",               url = "https://raw.githubusercontent.com/iLove-yuri/leeeeebian/refs/heads/main/homumado.lua", pre = function() _G.autoExec = false end },
+    { name = "Airflow Hub",            url = "https://airflowscripts.com/loader" },
+    { name = "SaiOps Hub",             url = "https://api.saiops.cc/scripts/Steal-An-Egg-Script.lua" },
+    { name = "SportsClub Hub",         url = "https://loader.sportsclub.fun/loader.luau" },
+    { name = "BigFroot Hub",           url = "https://raw.githubusercontent.com/hanniii/Loader/refs/heads/main/BFLoader.lua" },
+    { name = "Chiyo Hub",              url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua" },
+    { name = "Asvra Hub",              url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main" },
+    { name = "UlamHUB",                url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download" },
+    { name = "Steal an Egg Mobile Hub",url = "https://rscripts.net/raw/auto-steal-egg-auto-go-back-to-base-auto-place-eggs-and-more_1786067954070_r3UahDdqbt.txt" },
+    { name = "Lumin Hub",              url = "http://luminon.top/loader.lua" },
+    { name = "Wis Hub",                url = "https://api.wishub.cloud/files/loader.lua" },
+    { name = "Open Source Steal an Egg Script", url = "https://rscripts.net/raw/auto-steal-auto-hatch-upgrade-treadmill-auto-sell_1786088210969_Gtt85kSqk1.txt" },
+    { name = "Axurs Games Hub",        url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
+    { name = "Clout Hub",              url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua" },
+    { name = "Miranda Hub",            url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg" },
+    { name = "Chilli Hub",             url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua" },
+    { name = "Neva Hub",               url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
 }
 
 --==================================================
@@ -420,7 +258,7 @@ local rows = {}
 local function createScriptSlot(data)
 
     local row = Instance.new("Frame")
-    row.Name = data.name
+    row.Name = data.name:gsub("%s+", "_"):gsub("[^%w_]", "")
     row.Size = UDim2.new(1, -6, 0, 47)
     row.BackgroundColor3 = PANEL
     row.BorderSizePixel = 0
@@ -430,7 +268,6 @@ local function createScriptSlot(data)
     rowCorner.CornerRadius = UDim.new(0, 7)
     rowCorner.Parent = row
 
-    -- SCRIPT NAME
     local label = Instance.new("TextLabel")
     label.Size = UDim2.new(1, -105, 1, 0)
     label.Position = UDim2.fromOffset(15, 0)
@@ -443,7 +280,6 @@ local function createScriptSlot(data)
     label.TextTruncate = Enum.TextTruncate.AtEnd
     label.Parent = row
 
-    -- STAR
     local star = Instance.new("TextButton")
     star.Size = UDim2.fromOffset(38, 34)
     star.Position = UDim2.new(1, -100, 0, 6)
@@ -459,7 +295,6 @@ local function createScriptSlot(data)
     starCorner.Parent = star
 
     star.MouseButton1Click:Connect(function()
-
         if star.Text == "☆" then
             star.Text = "★"
             star.TextColor3 = ORANGE
@@ -467,10 +302,8 @@ local function createScriptSlot(data)
             star.Text = "☆"
             star.TextColor3 = GREY
         end
-
     end)
 
-    -- RUN
     local run = Instance.new("TextButton")
     run.Size = UDim2.fromOffset(60, 34)
     run.Position = UDim2.new(1, -60, 0, 6)
@@ -485,13 +318,42 @@ local function createScriptSlot(data)
     runCorner.CornerRadius = UDim.new(0, 6)
     runCorner.Parent = run
 
-    -- RUN ONLY IDENTIFIES THE SELECTED ENTRY
     run.MouseButton1Click:Connect(function()
 
-        print("BIGBOSS HUB PV3")
-        print("Selected Script: " .. data.name)
-        print("Script URL: " .. data.url)
+        local originalText = run.Text
+        run.Text = "..."
+        run.TextColor3 = ORANGE
 
+        task.spawn(function()
+
+            if data.pre then
+                pcall(data.pre)
+            end
+
+            local ok, err = pcall(function()
+                local src = game:HttpGet(data.url, true)
+                local fn, compileErr = loadstring(src)
+                if not fn then
+                    error(compileErr or "loadstring failed")
+                end
+                fn()
+            end)
+
+            if ok then
+                run.Text = "OK"
+                run.TextColor3 = GREEN
+                print(("[BIGBOSS HUB] Loaded: %s"):format(data.name))
+            else
+                run.Text = "ERR"
+                run.TextColor3 = RED
+                warn(("[BIGBOSS HUB] Failed [%s]: %s"):format(data.name, tostring(err)))
+            end
+
+            task.wait(1.8)
+            run.Text = originalText
+            run.TextColor3 = ORANGE
+
+        end)
     end)
 
     table.insert(rows, {
@@ -499,10 +361,6 @@ local function createScriptSlot(data)
         name = string.lower(data.name)
     })
 end
-
---==================================================
--- CREATE ALL SCRIPT SLOTS
---==================================================
 
 for _, data in ipairs(scripts) do
     createScriptSlot(data)
@@ -513,23 +371,14 @@ end
 --==================================================
 
 search:GetPropertyChangedSignal("Text"):Connect(function()
-
     local query = string.lower(search.Text)
-
     for _, data in ipairs(rows) do
-
         if query == "" then
-
             data.row.Visible = true
-
         else
-
-            data.row.Visible =
-                string.find(data.name, query, 1, true) ~= nil
-
+            data.row.Visible = string.find(data.name, query, 1, true) ~= nil
         end
     end
-
 end)
 
 --==================================================
