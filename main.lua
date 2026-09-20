@@ -56,7 +56,7 @@ uiScale.Parent = main
 
 local header = Instance.new("Frame")
 header.Name = "Header"
-header.Size = UDim2.new(1, 0, 0, 72)
+header.Size = UDim2.new(1, 0, 0, 78)
 header.BackgroundColor3 = BLACK
 header.BorderSizePixel = 0
 header.Parent = main
@@ -73,12 +73,12 @@ title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = header
 
 local owner = Instance.new("TextLabel")
-owner.Size = UDim2.new(1, -80, 0, 20)
-owner.Position = UDim2.fromOffset(18, 42)
+owner.Size = UDim2.new(1, -80, 0, 22)
+owner.Position = UDim2.fromOffset(18, 44)
 owner.BackgroundTransparency = 1
 owner.Text = "OWNER: CHRISTIAN LUDRIPAS  •  STRICTLY NOT FOR SALE"
 owner.TextColor3 = WHITE
-owner.TextSize = 11
+owner.TextSize = 13
 owner.Font = Enum.Font.GothamBold
 owner.TextXAlignment = Enum.TextXAlignment.Left
 owner.Parent = header
@@ -89,7 +89,7 @@ owner.Parent = header
 
 local close = Instance.new("TextButton")
 close.Size = UDim2.fromOffset(40, 40)
-close.Position = UDim2.new(1, -50, 0, 16)
+close.Position = UDim2.new(1, -50, 0, 18)
 close.BackgroundColor3 = PANEL2
 close.Text = "X"
 close.TextColor3 = WHITE
@@ -150,8 +150,8 @@ end)
 
 local content = Instance.new("Frame")
 content.Name = "Content"
-content.Size = UDim2.new(1, -30, 1, -82)
-content.Position = UDim2.fromOffset(15, 77)
+content.Size = UDim2.new(1, -30, 1, -88)
+content.Position = UDim2.fromOffset(15, 83)
 content.BackgroundTransparency = 1
 content.Parent = main
 
@@ -205,48 +205,60 @@ listPadding.Parent = list
 
 --==================================================
 -- SCRIPT DATABASE
+-- tag = "KEYLESS" (green) or "KEY" (red)
 --==================================================
 
 local scripts = {
 
-    { name = "Night Hub",              url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau" },
-    { name = "CloverHub",              url = "https://cloverhub.app/clover.lua" },
-    { name = "Ajans Hub",              url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
-    { name = "Potato Hub",             url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua" },
-    { name = "Spiritual Gaming Hub",   url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua" },
-    { name = "Ouroboros Hub",          url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
-    { name = "Decode Hub",             url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DEK3ACODE.lua" },
-    { name = "Fyy Community",          url = "https://FyyCommunity.my.id" },
-    { name = "Foxname",                url = "https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Fn-stealanegg.lua" },
-    { name = "Zerion Hub",             url = "https://zerionhub.com/api/script" },
-    { name = "Sena Hub",               url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go" },
-    { name = "BlyxoHub",               url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua" },
-    { name = "UB Hub",                 url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/Loader.lua" },
-    { name = "Rene Baterbonia",        url = "https://raw.githubusercontent.com/JuaINasiRendang/loader/refs/heads/main/main.lua" },
-    { name = "Toolbox Hub",            url = "https://raw.githubusercontent.com/Abdullahking20/loader_lua/main/loader" },
-    { name = "Glint Hub",              url = "https://flowauth.net/v1/loaders/6824c37a4078d7d311677732e231edaa.lua" },
-    { name = "ONhub",                  url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua" },
-    { name = "BK Hub",                 url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua" },
-    { name = "Nexa Hub",               url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
-    { name = "Probost Hub",            url = "https://api.jnkie.com/api/v1/luascripts/public/0199b576f5c2d5a34159f0f9f4e1de0a566b4d1da5b1cfa5d2f71ade9bdcaa24/download" },
-    { name = "SoftKillz",              url = "https://pastebin.com/raw/ZuE8Wb5K" },
-    { name = "Yuri Hub",               url = "https://raw.githubusercontent.com/iLove-yuri/leeeeebian/refs/heads/main/homumado.lua", pre = function() _G.autoExec = false end },
-    { name = "Airflow Hub",            url = "https://airflowscripts.com/loader" },
-    { name = "SaiOps Hub",             url = "https://api.saiops.cc/scripts/Steal-An-Egg-Script.lua" },
-    { name = "SportsClub Hub",         url = "https://loader.sportsclub.fun/loader.luau" },
-    { name = "BigFroot Hub",           url = "https://raw.githubusercontent.com/hanniii/Loader/refs/heads/main/BFLoader.lua" },
-    { name = "Chiyo Hub",              url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua" },
-    { name = "Asvra Hub",              url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main" },
-    { name = "UlamHUB",                url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download" },
-    { name = "Steal an Egg Mobile Hub",url = "https://rscripts.net/raw/auto-steal-egg-auto-go-back-to-base-auto-place-eggs-and-more_1786067954070_r3UahDdqbt.txt" },
-    { name = "Lumin Hub",              url = "http://luminon.top/loader.lua" },
-    { name = "Wis Hub",                url = "https://api.wishub.cloud/files/loader.lua" },
-    { name = "Open Source Steal an Egg Script", url = "https://rscripts.net/raw/auto-steal-auto-hatch-upgrade-treadmill-auto-sell_1786088210969_Gtt85kSqk1.txt" },
-    { name = "Axurs Games Hub",        url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
-    { name = "Clout Hub",              url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua" },
-    { name = "Miranda Hub",            url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg" },
-    { name = "Chilli Hub",             url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua" },
-    { name = "Neva Hub",               url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
+    -- ============ KEYLESS ============
+    { name = "Axur Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
+    { name = "Anti Cheat Bypass",     tag = "KEYLESS", url = "https://pastefy.app/iedWaiQX/raw" },
+    { name = "ZWARE",                 tag = "KEYLESS", url = "https://api.luarmor.net/files/v4/loaders/53f54e99aa490d4741858889f586475a.lua" },
+    { name = "UB Hub",                tag = "KEYLESS", url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/index/Key.lua" },
+    { name = "ZeroPoint",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/JaxRol/ZeroPoint/refs/heads/main/KeySystem" },
+    { name = "Echo Gaming V2",        tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/9cf64bc30cec4168a762fc8b55c527c3/raw/3df15bf0a16263ed0676084b98d9d363fa77258b/gistfile1.lua" },
+    { name = "Airflow",               tag = "KEYLESS", url = "https://airflowscript.com/loader" },
+    { name = "Night Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau" },
+    { name = "CloverHub",             tag = "KEYLESS", url = "https://cloverhub.app/clover.lua" },
+    { name = "Ajans Hub",             tag = "KEYLESS", url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
+    { name = "Potato Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua" },
+    { name = "Spiritual Gaming Hub",  tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua" },
+    { name = "Ouroboros Hub",         tag = "KEYLESS", url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
+    { name = "Decode Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DEK3ACODE.lua" },
+    { name = "Fyy Community",         tag = "KEYLESS", url = "https://FyyCommunity.my.id" },
+    { name = "Foxname",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Fn-stealanegg.lua" },
+    { name = "Zerion Hub",            tag = "KEYLESS", url = "https://zerionhub.com/api/script" },
+    { name = "Sena Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go" },
+    { name = "BlyxoHub",              tag = "KEYLESS", url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua" },
+    { name = "Rene Baterbonia",       tag = "KEYLESS", url = "https://raw.githubusercontent.com/JuaINasiRendang/loader/refs/heads/main/main.lua" },
+    { name = "Toolbox Hub",           tag = "KEYLESS", url = "https://raw.githubusercontent.com/Abdullahking20/loader_lua/main/loader" },
+    { name = "ONhub",                 tag = "KEYLESS", url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua" },
+    { name = "Nexa Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
+    { name = "Probost Hub",           tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/0199b576f5c2d5a34159f0f9f4e1de0a566b4d1da5b1cfa5d2f71ade9bdcaa24/download" },
+    { name = "SoftKillz",             tag = "KEYLESS", url = "https://pastebin.com/raw/ZuE8Wb5K" },
+    { name = "SportsClub Hub",        tag = "KEYLESS", url = "https://loader.sportsclub.fun/loader.luau" },
+    { name = "BigFroot Hub",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/hanniii/Loader/refs/heads/main/BFLoader.lua" },
+    { name = "Chiyo Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua" },
+    { name = "Asvra Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main" },
+    { name = "UlamHUB",               tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download" },
+    { name = "Axurs Games Hub",       tag = "KEYLESS", url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
+    { name = "Clout Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua" },
+    { name = "Miranda Hub",           tag = "KEYLESS", url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg" },
+    { name = "Chilli Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua" },
+    { name = "Neva Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
+
+    -- ============ KEY REQUIRED ============
+    { name = "Snowy Hub",             tag = "KEY",     url = "https://flowauth.net/v1/ui/a87f00d9adf63658655fcd02ab86a4ef.lua" },
+    { name = "Solix Hub",             tag = "KEY",     url = "https://solixhub.com/loader" },
+    { name = "Lumin Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/bb52b20f68271ba3e60fffc8f902f25b.lua" },
+    { name = "Forge Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua" },
+    { name = "NEOX Hub",              tag = "KEY",     url = "https://raw.githubusercontent.com/hassanxzayn-lua/NEOXHUBMAIN/refs/heads/main/loader" },
+    { name = "Overflow",              tag = "KEY",     url = "https://overflow.cx/loader.lua" },
+    { name = "Genesis Hub",           tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/5946add9ab91f1e04cb005346a8b1968.lua" },
+    { name = "Ronix Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua" },
+    { name = "Yuri Hub",              tag = "KEY",     url = "https://raw.githubusercontent.com/iLove-yuri/leeeeebian/refs/heads/main/homumado.lua", pre = function() _G.autoExec = false end },
+    { name = "BK Hub",                tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua" },
+    { name = "Glint Hub",             tag = "KEY",     url = "https://flowauth.net/v1/loaders/6824c37a4078d7d311677732e231edaa.lua" },
 }
 
 --==================================================
@@ -268,8 +280,9 @@ local function createScriptSlot(data)
     rowCorner.CornerRadius = UDim.new(0, 7)
     rowCorner.Parent = row
 
+    -- SCRIPT NAME
     local label = Instance.new("TextLabel")
-    label.Size = UDim2.new(1, -105, 1, 0)
+    label.Size = UDim2.new(0, 250, 1, 0)
     label.Position = UDim2.fromOffset(15, 0)
     label.BackgroundTransparency = 1
     label.Text = data.name
@@ -280,6 +293,26 @@ local function createScriptSlot(data)
     label.TextTruncate = Enum.TextTruncate.AtEnd
     label.Parent = row
 
+    -- TAG BADGE (KEYLESS = green, KEY = red)
+    local isKey = data.tag == "KEY"
+    local badgeColor = isKey and Color3.fromRGB(70, 25, 25) or Color3.fromRGB(25, 65, 40)
+    local textColor  = isKey and RED or GREEN
+
+    local tag = Instance.new("TextLabel")
+    tag.Size = UDim2.fromOffset(isKey and 42 or 68, 22)
+    tag.Position = UDim2.new(0, 270, 0.5, -11)
+    tag.BackgroundColor3 = badgeColor
+    tag.Text = data.tag
+    tag.TextColor3 = textColor
+    tag.TextSize = 10
+    tag.Font = Enum.Font.GothamBold
+    tag.Parent = row
+
+    local tagCorner = Instance.new("UICorner")
+    tagCorner.CornerRadius = UDim.new(0, 5)
+    tagCorner.Parent = tag
+
+    -- STAR
     local star = Instance.new("TextButton")
     star.Size = UDim2.fromOffset(38, 34)
     star.Position = UDim2.new(1, -100, 0, 6)
@@ -304,6 +337,7 @@ local function createScriptSlot(data)
         end
     end)
 
+    -- RUN
     local run = Instance.new("TextButton")
     run.Size = UDim2.fromOffset(60, 34)
     run.Position = UDim2.new(1, -60, 0, 6)
