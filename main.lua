@@ -28,7 +28,7 @@ Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
 
 -- SCALE EVERYTHING TO 85%
 local uiScale = Instance.new("UIScale")
-uiScale.Scale = 0.85
+uiScale.Scale = 0.60
 uiScale.Parent = main
 
 -- HEADER
