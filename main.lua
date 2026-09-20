@@ -55,7 +55,7 @@ uiScale.Scale = 0.60
 uiScale.Parent = main
 
 --==================================================
--- FLOATING CIRCLE LOGO
+-- FLOATING CIRCLE LOGO (fixed drag vs tap)
 --==================================================
 
 local logo = Instance.new("TextButton")
@@ -85,11 +85,17 @@ logoStroke.Parent = logo
 local logoDragging = false
 local logoDragStart
 local logoStartPos
+local logoMoved = false
+local logoPressStart = 0
+
+local DRAG_THRESHOLD = 8
 
 logo.InputBegan:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1
     or input.UserInputType == Enum.UserInputType.Touch then
         logoDragging = true
+        logoMoved = false
+        logoPressStart = tick()
         logoDragStart = input.Position
         logoStartPos = logo.Position
     end
@@ -101,7 +107,8 @@ UserInputService.InputChanged:Connect(function(input)
     or input.UserInputType == Enum.UserInputType.Touch then
         local delta = input.Position - logoDragStart
         local moved = math.abs(delta.X) + math.abs(delta.Y)
-        if moved > 6 then
+        if moved > DRAG_THRESHOLD then
+            logoMoved = true
             logo.Position = UDim2.new(
                 logoStartPos.X.Scale,
                 logoStartPos.X.Offset + delta.X,
@@ -116,6 +123,16 @@ UserInputService.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1
     or input.UserInputType == Enum.UserInputType.Touch then
         logoDragging = false
+
+        if not logoMoved then
+            local pressDuration = tick() - logoPressStart
+            if pressDuration < 0.5 then
+                main.Visible = true
+                logo.Visible = false
+            end
+        end
+
+        logoMoved = false
     end
 end)
 
@@ -255,11 +272,6 @@ close.MouseButton1Click:Connect(function()
     logo.Visible = true
 end)
 
-logo.MouseButton1Click:Connect(function()
-    main.Visible = true
-    logo.Visible = false
-end)
-
 --==================================================
 -- DRAG / MOVE UI
 --==================================================
@@ -360,7 +372,6 @@ listPadding.Parent = list
 
 --==================================================
 -- SCRIPT DATABASE
--- Similar names grouped: V1 first, then V2, then V3
 --==================================================
 
 local scripts = {
