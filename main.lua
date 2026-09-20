@@ -33,7 +33,7 @@ gui.DisplayOrder = 999
 gui.Parent = player:WaitForChild("PlayerGui")
 
 --==================================================
--- MAIN WINDOW (centered via AnchorPoint)
+-- MAIN WINDOW
 --==================================================
 
 local main = Instance.new("Frame")
@@ -55,29 +55,32 @@ uiScale.Scale = 0.60
 uiScale.Parent = main
 
 --==================================================
--- FLOATING CIRCLE LOGO
+-- FLOATING CIRCLE LOGO (smaller, outline on circle)
 --==================================================
 
 local logo = Instance.new("TextButton")
 logo.Name = "CircleLogo"
-logo.Size = UDim2.fromOffset(80, 80)
-logo.Position = UDim2.new(0, 20, 0.5, -40)
+logo.Size = UDim2.fromOffset(55, 55)
+logo.Position = UDim2.new(0, 20, 0.5, -27)
 logo.BackgroundColor3 = BLACK
 logo.Text = "BBHV3"
 logo.TextColor3 = ORANGE
-logo.TextSize = 15
+logo.TextSize = 11
 logo.Font = Enum.Font.GothamBold
 logo.AutoButtonColor = false
 logo.Visible = false
+logo.BorderSizePixel = 0
 logo.Parent = gui
 
 local logoCorner = Instance.new("UICorner")
 logoCorner.CornerRadius = UDim.new(1, 0)
 logoCorner.Parent = logo
 
+-- Orange outline ON THE CIRCLE (not the text)
 local logoStroke = Instance.new("UIStroke")
 logoStroke.Color = ORANGE
 logoStroke.Thickness = 2
+logoStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 logoStroke.Parent = logo
 
 -- Logo drag support
@@ -119,7 +122,7 @@ UserInputService.InputEnded:Connect(function(input)
 end)
 
 --==================================================
--- WARNING POPUP (centered via AnchorPoint)
+-- WARNING POPUP
 --==================================================
 
 local warning = Instance.new("Frame")
@@ -162,7 +165,6 @@ warnText.TextWrapped = true
 warnText.TextYAlignment = Enum.TextYAlignment.Top
 warnText.Parent = warning
 
--- X button top-right
 local warnClose = Instance.new("TextButton")
 warnClose.Size = UDim2.fromOffset(40, 40)
 warnClose.Position = UDim2.new(1, -50, 0, 12)
@@ -177,7 +179,6 @@ local warnCloseCorner = Instance.new("UICorner")
 warnCloseCorner.CornerRadius = UDim.new(0, 7)
 warnCloseCorner.Parent = warnClose
 
--- "CLICK TO CONTINUE" button
 local warnOK = Instance.new("TextButton")
 warnOK.Size = UDim2.new(1, -40, 0, 40)
 warnOK.Position = UDim2.new(0, 20, 1, -55)
