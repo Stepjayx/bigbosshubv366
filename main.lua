@@ -55,7 +55,7 @@ uiScale.Scale = 0.60
 uiScale.Parent = main
 
 --==================================================
--- FLOATING CIRCLE LOGO (smaller, outline on circle)
+-- FLOATING CIRCLE LOGO
 --==================================================
 
 local logo = Instance.new("TextButton")
@@ -76,14 +76,12 @@ local logoCorner = Instance.new("UICorner")
 logoCorner.CornerRadius = UDim.new(1, 0)
 logoCorner.Parent = logo
 
--- Orange outline ON THE CIRCLE (not the text)
 local logoStroke = Instance.new("UIStroke")
 logoStroke.Color = ORANGE
 logoStroke.Thickness = 2
 logoStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 logoStroke.Parent = logo
 
--- Logo drag support
 local logoDragging = false
 local logoDragStart
 local logoStartPos
@@ -362,58 +360,64 @@ listPadding.Parent = list
 
 --==================================================
 -- SCRIPT DATABASE
+-- Similar names grouped: V1 first, then V2, then V3
 --==================================================
 
 local scripts = {
 
-    -- ============ KEYLESS ============
-    { name = "Axur Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
-    { name = "Anti Cheat Bypass",     tag = "KEYLESS", url = "https://pastefy.app/iedWaiQX/raw" },
-    { name = "UB Hub",                tag = "KEYLESS", url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/index/Key.lua" },
-    { name = "ZeroPoint",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/JaxRol/ZeroPoint/refs/heads/main/KeySystem" },
-    { name = "Echo Gaming V2",        tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/9cf64bc30cec4168a762fc8b55c527c3/raw/3df15bf0a16263ed0676084b98d9d363fa77258b/gistfile1.lua" },
-    { name = "Airflow",               tag = "KEYLESS", url = "https://airflowscript.com/loader" },
-    { name = "Night Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/WhiteX1208/Scripts/refs/heads/main/StealAnEggs.luau" },
-    { name = "CloverHub",             tag = "KEYLESS", url = "https://cloverhub.app/clover.lua" },
-    { name = "Potato Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/potatohub67/potatoscripts/refs/heads/main/stealegg.lua" },
-    { name = "Spiritual Gaming Hub",  tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/f2c8c4009b2c4d4dda1b305fbc263e3f/raw/121ff8c9059476a7a362b543edc61499e5832937/gistfile1.lua" },
-    { name = "Ouroboros Hub",         tag = "KEYLESS", url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
-    { name = "Decode Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DEK3ACODE.lua" },
-    { name = "Fyy Community",         tag = "KEYLESS", url = "https://FyyCommunity.my.id" },
-    { name = "Foxname",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Fn-stealanegg.lua" },
-    { name = "Zerion Hub",            tag = "KEYLESS", url = "https://zerionhub.com/api/script" },
-    { name = "Sena Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go" },
-    { name = "BlyxoHub",              tag = "KEYLESS", url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua" },
-    { name = "Rene Baterbonia",       tag = "KEYLESS", url = "https://raw.githubusercontent.com/JuaINasiRendang/loader/refs/heads/main/main.lua" },
-    { name = "Toolbox Hub",           tag = "KEYLESS", url = "https://raw.githubusercontent.com/Abdullahking20/loader_lua/main/loader" },
-    { name = "ONhub",                 tag = "KEYLESS", url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua" },
-    { name = "Nexa Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
-    { name = "Probost Hub",           tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/0199b576f5c2d5a34159f0f9f4e1de0a566b4d1da5b1cfa5d2f71ade9bdcaa24/download" },
-    { name = "SoftKillz",             tag = "KEYLESS", url = "https://pastebin.com/raw/ZuE8Wb5K" },
-    { name = "SportsClub Hub",        tag = "KEYLESS", url = "https://loader.sportsclub.fun/loader.luau" },
-    { name = "BigFroot Hub",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/hanniii/Loader/refs/heads/main/BFLoader.lua" },
-    { name = "Chiyo Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua" },
-    { name = "Asvra Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main" },
-    { name = "UlamHUB",               tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download" },
-    { name = "Clout Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua" },
-    { name = "Miranda Hub",           tag = "KEYLESS", url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg" },
-    { name = "Chilli Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua" },
-    { name = "Neva Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
+    -- ============ MIRANDA SERIES ============
+    { name = "Miranda Hub V1",         tag = "KEYLESS", url = "https://raw.githubusercontent.com/chocolascript-glitch/MIRANDA-HUB-STEAL-AN-EGG/refs/heads/main/FREE-LEAKED" },
+    { name = "Miranda Hub V2",         tag = "KEYLESS", url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealaegg" },
+    { name = "Miranda Hub V2 (Alt)",   tag = "KEYLESS", url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealaeggs" },
 
-    -- ============ KEY REQUIRED ============
-    { name = "ZWARE",                 tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/53f54e99aa490d4741858889f586475a.lua" },
-    { name = "Ajans Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
-    { name = "Snowy Hub",             tag = "KEY",     url = "https://flowauth.net/v1/ui/a87f00d9adf63658655fcd02ab86a4ef.lua" },
-    { name = "Solix Hub",             tag = "KEY",     url = "https://solixhub.com/loader" },
-    { name = "Lumin Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/bb52b20f68271ba3e60fffc8f902f25b.lua" },
-    { name = "Forge Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v3/loaders/d5ed1fbd4301b1d18d75153c5b47181d.lua" },
-    { name = "NEOX Hub",              tag = "KEY",     url = "https://raw.githubusercontent.com/hassanxzayn-lua/NEOXHUBMAIN/refs/heads/main/loader" },
-    { name = "Overflow",              tag = "KEY",     url = "https://overflow.cx/loader.lua" },
-    { name = "Genesis Hub",           tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/5946add9ab91f1e04cb005346a8b1968.lua" },
-    { name = "Ronix Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v3/loaders/fda9babd071d6b536a745774b6bc681c.lua" },
-    { name = "Yuri Hub",              tag = "KEY",     url = "https://raw.githubusercontent.com/iLove-yuri/leeeeebian/refs/heads/main/homumado.lua", pre = function() _G.autoExec = false end },
-    { name = "BK Hub",                tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua" },
-    { name = "Glint Hub",             tag = "KEY",     url = "https://flowauth.net/v1/loaders/6824c37a4078d7d311677732e231edaa.lua" },
+    -- ============ LENNON SERIES ============
+    { name = "Lennon Hub V1",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/chocolascript-glitch/LENNON-HUB-STEAL-AN-EGG/refs/heads/main/FREE-LEAKED" },
+    { name = "Lennon Hub V2",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/lennonxscripts/lennonhub/main/stealaegg.lua" },
+    { name = "Lennon Hub V3",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/lennonxscripts/lennonhubv3/refs/heads/main/stealanegg.lua" },
+
+    -- ============ SENA SERIES ============
+    { name = "Sena Hub",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/loader" },
+    { name = "Sena Hub (New Update)",  tag = "KEYLESS", url = "https://raw.githubusercontent.com/senarblx/sena/refs/heads/main/senav3go" },
+
+    -- ============ FYY SERIES ============
+    { name = "Fyy Community V1",       tag = "KEYLESS", url = "https://fyycommunity.my.id" },
+    { name = "Fyy Community V2",       tag = "KEYLESS", url = "https://fyycommunity.my.id" },
+
+    -- ============ SPEED HUB SERIES ============
+    { name = "Speed Hub X V1",         tag = "KEY",     url = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
+    { name = "Speed Hub X V2",         tag = "KEY",     url = "https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua" },
+
+    -- ============ KOXTA ANTI-HIT SERIES ============
+    { name = "Koxta Anti-Hit V1",      tag = "KEYLESS", url = "https://raw.githubusercontent.com/koxtakoxta8-design/KOXTA-ANTI-HIT/refs/heads/main/KOXTA-HIT" },
+    { name = "Koxta Anti-Hit V2 (Updated)", tag = "KEYLESS", url = "https://raw.githubusercontent.com/koxtakoxta8-design/KOXTA-ANTI-HIT/refs/heads/main/KOXTA-HIT" },
+
+    -- ============ OTHERS ============
+    { name = "Ouroboros Hub",          tag = "KEYLESS", url = "https://raw.githubusercontent.com/joustingmatch/Ouroboros/main/loader.lua" },
+    { name = "OmGshit Hub",            tag = "KEY",     url = "https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua" },
+    { name = "Nameless Hub",           tag = "KEY",     url = "https://rawscripts.net/raw/Steal-An-Egg-Nameless-Hub-Instant-Steal-and-Full-Invisible-and-More-226506" },
+    { name = "Clover Hub",             tag = "KEYLESS", url = "https://cloverhub.app/clover.lua" },
+    { name = "Xuan Hub",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/xuann-hubb/loaderV2/refs/heads/main/LoaderV2.lua" },
+    { name = "Zero Point",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/JaxRoI/ZeroPoint/refs/heads/main/KeySystem" },
+    { name = "Rezzy Server Finder",    tag = "KEYLESS", url = "https://raw.githubusercontent.com/Roman666Cabj/Nether/refs/heads/main/RezzyServerHop.lua" },
+    { name = "Zeroin Hub",             tag = "KEYLESS", url = "https://zeroinhub.com/api/script" },
+    { name = "ON Hub",                 tag = "KEYLESS", url = "https://raw.githubusercontent.com/davizin713/ONhub/refs/heads/main/script.lua" },
+    { name = "Ajjan Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/virtuososvisualedits-prog/Ww/refs/heads/main/final-obfuscated.lua" },
+    { name = "Decode Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/ItzYumi/Decode/refs/heads/main/DE%3ACODE.lua" },
+    { name = "Bigfoot Hub (BF)",       tag = "KEYLESS", url = "https://raw.githubusercontent.com/hanniii1/Loader/refs/heads/main/BFLoader.lua" },
+    { name = "Anghello Verse Hub",     tag = "KEYLESS", url = "https://raw.githubusercontent.com/a10official2r-alt/A/refs/heads/main/Test" },
+    { name = "Rene Hub",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/sabscript-arch/srver/refs/heads/main/Stealanegg" },
+    { name = "Anti Hub",               tag = "KEYLESS", url = "https://api.getpolsec.com/scripts/hosted/6582551b42d21c6b7eb55f1d76d8d50ce53cb35592093d6615b5e83437594dc0.lua" },
+    { name = "Blyxo Hub",              tag = "KEYLESS", url = "https://flowauth.net/v1/loaders/69d3463240384f3a73fbe32c178093a2.lua" },
+    { name = "BK Hub",                 tag = "KEYLESS", url = "https://api.luarmor.net/files/v4/loaders/9ee4edde227ac85f50872bf9e4226508.lua" },
+    { name = "Pulse Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/PulseZax/Loader/refs/heads/main/.lua" },
+    { name = "Anti Hit (Alt)",         tag = "KEYLESS", url = "https://pastefy.app/nasHhfko/raw" },
+    { name = "Vortex Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/Israel-Vortex/vortex-x-scripts/refs/heads/main/Official-Vortex-Software/Dev-Project/StealAnEgg.lua" },
+    { name = "Leon Hub",               tag = "KEYLESS", url = "https://raw.githubusercontent.com/n01771542-cmd/faluahub/main/main.lua" },
+    { name = "Bee Hub",                tag = "KEYLESS", url = "https://raw.githubusercontent.com/beehub044/Beehuh/refs/heads/main/BEE%20HUB%20IS%20BACK" },
+    { name = "Bee Hub Premium",        tag = "KEYLESS", url = "https://flowauth.net/v1/loaders/178cde5c2aba98369938c59b56f63654.lua" },
+    { name = "Horizons V2 Anti",       tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/0f42cd8521f9ac0584d5d583f1c9f5231538a743900058298102e9249211912b/download", pre = function() getgenv().SCRIPT_KEY = "KEYLESS" end },
+    { name = "Rift Hub",               tag = "KEYLESS", url = "https://rifton.top/loader.lua" },
+    { name = "Solix Hub",              tag = "KEYLESS", url = "https://solixhub.com/loader" },
 }
 
 --==================================================
