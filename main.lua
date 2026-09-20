@@ -2,6 +2,8 @@
 -- UI ONLY
 
 local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
 local player = Players.LocalPlayer
 
 local gui = Instance.new("ScreenGui")
@@ -19,14 +21,14 @@ local GREY = Color3.fromRGB(130, 140, 155)
 -- MAIN WINDOW
 local main = Instance.new("Frame")
 main.Size = UDim2.fromOffset(750, 570)
-main.Position = UDim2.new(.5, -375, .5, -285)
+main.Position = UDim2.new(0.5, -375, 0.5, -285)
 main.BackgroundColor3 = BLACK
 main.BorderSizePixel = 0
 main.Parent = gui
 
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
 
--- SCALE EVERYTHING TO 85%
+-- SCALE
 local uiScale = Instance.new("UIScale")
 uiScale.Scale = 0.60
 uiScale.Parent = main
@@ -38,8 +40,9 @@ header.BackgroundColor3 = BLACK
 header.BorderSizePixel = 0
 header.Parent = main
 
+-- TITLE
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, -30, 0, 34)
+title.Size = UDim2.new(1, -80, 0, 34)
 title.Position = UDim2.fromOffset(18, 7)
 title.BackgroundTransparency = 1
 title.Text = "BIGBOSS HUB PV3"
@@ -49,8 +52,9 @@ title.Font = Enum.Font.GothamBold
 title.TextXAlignment = Enum.TextXAlignment.Left
 title.Parent = header
 
+-- OWNER
 local owner = Instance.new("TextLabel")
-owner.Size = UDim2.new(1, -30, 0, 20)
+owner.Size = UDim2.new(1, -80, 0, 20)
 owner.Position = UDim2.fromOffset(18, 42)
 owner.BackgroundTransparency = 1
 owner.Text = "OWNER: CHRISTIAN LUDRIPAS  •  STRICTLY NOT FOR SALE"
@@ -77,74 +81,64 @@ close.MouseButton1Click:Connect(function()
     gui:Destroy()
 end)
 
--- SIDEBAR
-local side = Instance.new("Frame")
-side.Size = UDim2.new(0, 105, 1, -72)
-side.Position = UDim2.fromOffset(0, 72)
-side.BackgroundColor3 = Color3.fromRGB(9, 12, 19)
-side.BorderSizePixel = 0
-side.Parent = main
+-- =========================================================
+-- DRAG SYSTEM - MOUSE + MOBILE TOUCH
+-- =========================================================
 
-local function tab(text, y, active)
-    local b = Instance.new("TextButton")
-    b.Size = UDim2.new(1, -12, 0, 48)
-    b.Position = UDim2.fromOffset(6, y)
-    b.BackgroundColor3 = active and ORANGE or PANEL
-    b.Text = text
-    b.TextColor3 = active and Color3.new(0,0,0) or WHITE
-    b.TextSize = 12
-    b.Font = Enum.Font.GothamBold
-    b.Parent = side
+local dragging = false
+local dragStart
+local startPos
 
-    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 7)
-    return b
+local function updateDrag(input)
+    local delta = input.Position - dragStart
+
+    main.Position = UDim2.new(
+        startPos.X.Scale,
+        startPos.X.Offset + delta.X,
+        startPos.Y.Scale,
+        startPos.Y.Offset + delta.Y
+    )
 end
 
-tab("EGG", 10, true)
-tab("SCRIPT", 65, false)
-tab("PET", 120, false)
-tab("MISC", 175, false)
+header.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+    or input.UserInputType == Enum.UserInputType.Touch then
 
+        dragging = true
+        dragStart = input.Position
+        startPos = main.Position
+
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging then
+        if input.UserInputType == Enum.UserInputType.MouseMovement
+        or input.UserInputType == Enum.UserInputType.Touch then
+            updateDrag(input)
+        end
+    end
+end)
+
+-- =========================================================
 -- CONTENT
+-- =========================================================
+
 local content = Instance.new("Frame")
-content.Size = UDim2.new(1, -115, 1, -82)
-content.Position = UDim2.fromOffset(110, 77)
+content.Size = UDim2.new(1, -30, 1, -82)
+content.Position = UDim2.fromOffset(15, 77)
 content.BackgroundTransparency = 1
 content.Parent = main
-
--- CHANNEL BUTTON
-local channel = Instance.new("TextButton")
-channel.Size = UDim2.fromOffset(270, 40)
-channel.BackgroundColor3 = ORANGE
-channel.Text = "LINK SALURAN WA (COPY)"
-channel.TextColor3 = Color3.new(0,0,0)
-channel.TextSize = 12
-channel.Font = Enum.Font.GothamBold
-channel.Parent = content
-
-Instance.new("UICorner", channel).CornerRadius = UDim.new(0, 7)
-
--- CATEGORY BUTTONS
-local cats = {"ALL", "KEY", "NO KEY", "RECOMMEND"}
-
-for i, text in ipairs(cats) do
-    local b = Instance.new("TextButton")
-    b.Size = UDim2.fromOffset(112, 36)
-    b.Position = UDim2.fromOffset((i-1)*118, 48)
-    b.BackgroundColor3 = i == 1 and ORANGE or PANEL2
-    b.Text = text
-    b.TextColor3 = i == 1 and Color3.new(0,0,0) or WHITE
-    b.TextSize = 11
-    b.Font = Enum.Font.GothamBold
-    b.Parent = content
-
-    Instance.new("UICorner", b).CornerRadius = UDim.new(0, 7)
-end
 
 -- SEARCH
 local search = Instance.new("TextBox")
 search.Size = UDim2.new(1, -5, 0, 40)
-search.Position = UDim2.fromOffset(0, 92)
+search.Position = UDim2.fromOffset(0, 0)
 search.BackgroundColor3 = PANEL2
 search.PlaceholderText = "Search script..."
 search.PlaceholderColor3 = GREY
@@ -158,8 +152,8 @@ Instance.new("UICorner", search).CornerRadius = UDim.new(0, 7)
 
 -- SCRIPT LIST
 local list = Instance.new("ScrollingFrame")
-list.Size = UDim2.new(1, -5, 1, -140)
-list.Position = UDim2.fromOffset(0, 140)
+list.Size = UDim2.new(1, -5, 1, -50)
+list.Position = UDim2.fromOffset(0, 50)
 list.BackgroundTransparency = 1
 list.BorderSizePixel = 0
 list.ScrollBarThickness = 5
@@ -171,6 +165,7 @@ local layout = Instance.new("UIListLayout")
 layout.Padding = UDim.new(0, 7)
 layout.Parent = list
 
+-- SCRIPT NAMES
 local names = {
     "LUCID HUB",
     "FISHY",
@@ -235,8 +230,9 @@ for _, name in ipairs(names) do
 
     Instance.new("UICorner", row).CornerRadius = UDim.new(0, 7)
 
+    -- NAME
     local label = Instance.new("TextLabel")
-    label.Size = UDim2.new(1, -220, 1, 0)
+    label.Size = UDim2.new(1, -105, 1, 0)
     label.Position = UDim2.fromOffset(15, 0)
     label.BackgroundTransparency = 1
     label.Text = name
@@ -246,9 +242,10 @@ for _, name in ipairs(names) do
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.Parent = row
 
+    -- FAVORITE
     local star = Instance.new("TextButton")
     star.Size = UDim2.fromOffset(38, 34)
-    star.Position = UDim2.new(1, -158, 0, 6)
+    star.Position = UDim2.new(1, -100, 0, 6)
     star.BackgroundColor3 = PANEL2
     star.Text = "☆"
     star.TextColor3 = GREY
@@ -257,21 +254,20 @@ for _, name in ipairs(names) do
 
     Instance.new("UICorner", star).CornerRadius = UDim.new(0, 6)
 
-    local key = Instance.new("TextButton")
-    key.Size = UDim2.fromOffset(72, 34)
-    key.Position = UDim2.new(1, -113, 0, 6)
-    key.BackgroundColor3 = ORANGE
-    key.Text = "KEY"
-    key.TextColor3 = Color3.new(0,0,0)
-    key.TextSize = 11
-    key.Font = Enum.Font.GothamBold
-    key.Parent = row
+    star.MouseButton1Click:Connect(function()
+        if star.Text == "☆" then
+            star.Text = "★"
+            star.TextColor3 = ORANGE
+        else
+            star.Text = "☆"
+            star.TextColor3 = GREY
+        end
+    end)
 
-    Instance.new("UICorner", key).CornerRadius = UDim.new(0, 6)
-
+    -- RUN
     local run = Instance.new("TextButton")
     run.Size = UDim2.fromOffset(60, 34)
-    run.Position = UDim2.new(1, -70, 0, 6)
+    run.Position = UDim2.new(1, -60, 0, 6)
     run.BackgroundColor3 = PANEL2
     run.Text = "RUN"
     run.TextColor3 = ORANGE
@@ -281,12 +277,17 @@ for _, name in ipairs(names) do
 
     Instance.new("UICorner", run).CornerRadius = UDim.new(0, 6)
 
+    run.MouseButton1Click:Connect(function()
+        print("Selected: " .. name)
+    end)
+
     table.insert(rows, {
         row = row,
         name = string.lower(name)
     })
 end
 
+-- RESIZE SCROLLING
 local function resize()
     list.CanvasSize = UDim2.fromOffset(
         0,
