@@ -33,14 +33,14 @@ gui.DisplayOrder = 999
 gui.Parent = player:WaitForChild("PlayerGui")
 
 --==================================================
--- MAIN WINDOW (hidden until warning dismissed)
+-- MAIN WINDOW (centered via AnchorPoint)
 --==================================================
 
 local main = Instance.new("Frame")
 main.Name = "Main"
 main.Size = UDim2.fromOffset(750, 570)
-main.Position = UDim2.new(0.5, -375, 0.5, -285)
-main.AnchorPoint = Vector2.new(0, 0)
+main.Position = UDim2.new(0.5, 0, 0.5, 0)
+main.AnchorPoint = Vector2.new(0.5, 0.5)
 main.BackgroundColor3 = BLACK
 main.BorderSizePixel = 0
 main.Visible = false
@@ -55,7 +55,7 @@ uiScale.Scale = 0.60
 uiScale.Parent = main
 
 --==================================================
--- FLOATING CIRCLE LOGO (shows when UI is closed)
+-- FLOATING CIRCLE LOGO
 --==================================================
 
 local logo = Instance.new("TextButton")
@@ -119,13 +119,14 @@ UserInputService.InputEnded:Connect(function(input)
 end)
 
 --==================================================
--- WARNING POPUP (appears first, centered)
+-- WARNING POPUP (centered via AnchorPoint)
 --==================================================
 
 local warning = Instance.new("Frame")
 warning.Name = "Warning"
 warning.Size = UDim2.fromOffset(420, 220)
-warning.Position = UDim2.new(0.5, -210, 0.5, -110)
+warning.Position = UDim2.new(0.5, 0, 0.5, 0)
+warning.AnchorPoint = Vector2.new(0.5, 0.5)
 warning.BackgroundColor3 = BLACK
 warning.BorderSizePixel = 0
 warning.Parent = gui
@@ -161,6 +162,7 @@ warnText.TextWrapped = true
 warnText.TextYAlignment = Enum.TextYAlignment.Top
 warnText.Parent = warning
 
+-- X button top-right
 local warnClose = Instance.new("TextButton")
 warnClose.Size = UDim2.fromOffset(40, 40)
 warnClose.Position = UDim2.new(1, -50, 0, 12)
@@ -175,11 +177,12 @@ local warnCloseCorner = Instance.new("UICorner")
 warnCloseCorner.CornerRadius = UDim.new(0, 7)
 warnCloseCorner.Parent = warnClose
 
+-- "CLICK TO CONTINUE" button
 local warnOK = Instance.new("TextButton")
 warnOK.Size = UDim2.new(1, -40, 0, 40)
 warnOK.Position = UDim2.new(0, 20, 1, -55)
 warnOK.BackgroundColor3 = ORANGE
-warnOK.Text = "I UNDERSTAND"
+warnOK.Text = "CLICK TO CONTINUE"
 warnOK.TextColor3 = BLACK
 warnOK.TextSize = 14
 warnOK.Font = Enum.Font.GothamBold
@@ -189,7 +192,6 @@ local warnOKCorner = Instance.new("UICorner")
 warnOKCorner.CornerRadius = UDim.new(0, 8)
 warnOKCorner.Parent = warnOK
 
--- Both X and OK dismiss the warning and reveal the hub
 local function dismissWarning()
     warning.Visible = false
     main.Visible = true
@@ -232,7 +234,7 @@ owner.TextXAlignment = Enum.TextXAlignment.Left
 owner.Parent = header
 
 --==================================================
--- CLOSE BUTTON (hides UI, shows logo)
+-- CLOSE BUTTON
 --==================================================
 
 local close = Instance.new("TextButton")
@@ -254,7 +256,6 @@ close.MouseButton1Click:Connect(function()
     logo.Visible = true
 end)
 
--- Tap the logo → bring back the UI
 logo.MouseButton1Click:Connect(function()
     main.Visible = true
     logo.Visible = false
@@ -367,7 +368,6 @@ local scripts = {
     -- ============ KEYLESS ============
     { name = "Axur Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
     { name = "Anti Cheat Bypass",     tag = "KEYLESS", url = "https://pastefy.app/iedWaiQX/raw" },
-    { name = "ZWARE",                 tag = "KEYLESS", url = "https://api.luarmor.net/files/v4/loaders/53f54e99aa490d4741858889f586475a.lua" },
     { name = "UB Hub",                tag = "KEYLESS", url = "https://raw.githubusercontent.com/TeamUBHub/UBLoader/refs/heads/main/index/Key.lua" },
     { name = "ZeroPoint",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/JaxRol/ZeroPoint/refs/heads/main/KeySystem" },
     { name = "Echo Gaming V2",        tag = "KEYLESS", url = "https://gist.githubusercontent.com/spiritualgaming1123-beep/9cf64bc30cec4168a762fc8b55c527c3/raw/3df15bf0a16263ed0676084b98d9d363fa77258b/gistfile1.lua" },
@@ -394,13 +394,13 @@ local scripts = {
     { name = "Chiyo Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/kaisenlimao/loader/refs/heads/main/chiyo.lua" },
     { name = "Asvra Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/asvraRoblox/stealegg/refs/heads/main/main" },
     { name = "UlamHUB",               tag = "KEYLESS", url = "https://api.jnkie.com/api/v1/luascripts/public/4fa5547b587bf3110ad121fd9650a8256ed00c073ae49ecf07d2130a206125/download" },
-    { name = "Axurs Games Hub",       tag = "KEYLESS", url = "https://raw.githubusercontent.com/XE3Scripts/Axur-sGamesHub/refs/heads/main/StealAnEgg" },
     { name = "Clout Hub",             tag = "KEYLESS", url = "https://raw.githubusercontent.com/CloutHubOnTop/Loader/main/main.lua" },
     { name = "Miranda Hub",           tag = "KEYLESS", url = "https://raw.githubusercontent.com/miirandahub/loader/refs/heads/main/stealegg" },
     { name = "Chilli Hub",            tag = "KEYLESS", url = "https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua" },
     { name = "Neva Hub",              tag = "KEYLESS", url = "https://raw.githubusercontent.com/VEZZ/NEVAHUB/main/2" },
 
     -- ============ KEY REQUIRED ============
+    { name = "ZWARE",                 tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/53f54e99aa490d4741858889f586475a.lua" },
     { name = "Ajans Hub",             tag = "KEY",     url = "https://api.luarmor.net/files/v4/loaders/359e97f8618e9008afe5f496184ebb7c.lua" },
     { name = "Snowy Hub",             tag = "KEY",     url = "https://flowauth.net/v1/ui/a87f00d9adf63658655fcd02ab86a4ef.lua" },
     { name = "Solix Hub",             tag = "KEY",     url = "https://solixhub.com/loader" },
